@@ -6,7 +6,7 @@ var gameState=1;
 var knife,fruit ,monster,fruitGroup,monsterGroup, score,r,randomFruit, position;
 var knifeImage , fruit1, fruit2 ,fruit3,fruit4, monsterImage, gameOverImage;
 
-var score = 0;
+
 
 function preload(){
   
@@ -41,12 +41,7 @@ function setup() {
   score=0;
   fruitGroup=createGroup();
   monsterGroup=createGroup();
-
-
-
-
-
-  }
+}
   
 
 function draw() {
@@ -65,16 +60,18 @@ function draw() {
     // Increase score if sword touching fruit
     if(fruitGroup.isTouching(knife)){
       fruitGroup.destroyEach();
+      score=score+2;
+      knifeSwooshSound.play()
     }
     else
     { 
-      score=score+2;
+     
       // Go to end state if sword touching enemy
       if(monsterGroup.isTouching(knife)){
         gameState=END;
         
         //add gameover sound here
-        
+        gamerOverSound.play()
         fruitGroup.destroyEach();
         monsterGroup.destroyEach();
         fruitGroup.setVelocityXEach(0);
@@ -116,7 +113,7 @@ function Monster(){
     monster.y=Math.round(random(100,550));
     //update below give line of code for increase monsterGroup speed by 10
     monster.setLifetime=50;
-    monster.velocityX=-(8+(score/10));
+    monster.velocityX=-(4+(score/10));
     
     monsterGroup.add(monster);
   }
@@ -133,7 +130,7 @@ function fruits(){
     {
     fruit.x=600;
     //update below give line of code for increase fruitGroup speed by 4
-    fruit.velocityX=-(8+(score/4));
+    fruit.velocityX=-(3+(score/4));
     }
     else
     {
@@ -141,7 +138,7 @@ function fruits(){
       fruit.x=0;
       
      //update below give line of code for increase fruitGroup speed by 4
-     fruit.velocityX=-(8+(score/4));
+     fruit.velocityX=-(3+(score/4));
       }
     }
     
